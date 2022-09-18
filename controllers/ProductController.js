@@ -3,7 +3,8 @@ import ProductService from '../services/ProductService.js';
 class ProductController {
 	async createProduct(req, res) {
 		try {
-			let product = await ProductService.createProduct(req.body, req.files.avatar);
+			let prices = JSON.parse(req.body.prices);
+			let product = await ProductService.createProduct({...req.body, prices});
 			return res.status(200).json(product);	
 		} catch(e) {
 			res.status(500).json(e);

@@ -2,12 +2,14 @@ import { v4 } from 'uuid';
 import path from 'path';
 
 class FileService {
-	download(file) {
+	download(files) {
 		try {
-			let name = v4() + '.jpg';
-			let picPath = path.resolve('files/storage', name);
-			file.mv(picPath);
-			return name;
+			return files.map(file => {
+				let name = v4() + '.jpg';
+				let picPath = path.resolve('files/storage', name);
+				file.mv(picPath);
+				return name;
+			});
 		} catch(e) {
 			console.log(e);
 		}

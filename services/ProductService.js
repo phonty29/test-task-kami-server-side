@@ -2,9 +2,9 @@ import Product from '../models/Product.js';
 import FileService from '../files/service.js';
 
 class ProductService {
-	async createProduct(props, avatar) {
-		let pictureName = FileService.download(avatar);
-		let product = await Product.create({...props, avatar: pictureName});
+	async createProduct(props) {
+		// let pictureNames = FileService.download(images);
+		let product = await Product.create(props);
 		return product;			
 	}
 
