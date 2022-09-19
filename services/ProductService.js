@@ -3,9 +3,8 @@ import FileService from '../files/service.js';
 
 class ProductService {
 	async createProduct(props, images) {
-		console.log(props);
 		let imageNames = FileService.download(images);
-		let product = await Product.create({...props, images: imageNames});
+		let product = await Product.create({...props, imageUrls: imageNames});
 		return product;			
 	}
 
@@ -22,11 +21,14 @@ class ProductService {
 		return products;
 	}
 
-	async updateProduct(newProduct) {
+	async updateProduct(newProduct, newImages) {
 			if (!newProduct._id) {	
 				throw new Error("Bad Request");	
 			}
-			let product = await Product.findByIdAndUpdate(newProduct._id, newProduct, {new: true});
+			let oldProduct = await Product.findById(newProduct._id);
+			let newImageNames = FileService.download(newImages);
+			console.log("imageUrls : ", [...oldProduct.imageUrls, ...newImageNames]);
+			let product = await Product.findByIdAndUpdate(newProduct._id, {...newProduct, imageUrls : [...oldProduct.imageUrls, ...newImageNames]}, {new: true});
 			return product;		
 	}
 
