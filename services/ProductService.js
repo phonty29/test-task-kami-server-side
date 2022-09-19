@@ -27,7 +27,6 @@ class ProductService {
 			}
 			let oldProduct = await Product.findById(newProduct._id);
 			let newImageNames = FileService.download(newImages);
-			console.log("imageUrls : ", [...oldProduct.imageUrls, ...newImageNames]);
 			let product = await Product.findByIdAndUpdate(newProduct._id, {...newProduct, imageUrls : [...oldProduct.imageUrls, ...newImageNames]}, {new: true});
 			return product;		
 	}

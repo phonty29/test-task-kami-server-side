@@ -4,7 +4,11 @@ class ProductController {
 	async createProduct(req, res) {
 		try {
 			let prices = JSON.parse(req.body.prices);
-			let product = await ProductService.createProduct({...req.body, prices}, req.files.imageUrls);
+			let newImageUrls = [];
+			if (req.files) {
+				newImageUrls = req.files.imageUrls;
+			}
+			let product = await ProductService.createProduct({...req.body, prices}, newImageUrls);
 			return res.status(200).json(product);	
 		} catch(e) {
 			res.status(500).json(e);
@@ -34,7 +38,11 @@ class ProductController {
 	async updateProduct(req, res) {
 		try {
 			let prices = JSON.parse(req.body.prices);
-			let product = await ProductService.updateProduct({...req.body, prices}, req.files.imageUrls);
+			let newImageUrls = [];
+			if (req.files) {
+				newImageUrls = req.files.imageUrls;
+			}
+			let product = await ProductService.updateProduct({...req.body, prices}, newImageUrls);
 			return res.status(200).json(product);	
 		} catch(e) {
 			res.status(500).json(e);

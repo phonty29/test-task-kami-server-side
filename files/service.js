@@ -4,12 +4,21 @@ import path from 'path';
 class FileService {
 	download(files) {
 		try {
-			return files.map(file => {
+			if (files.length > 1) {
+				return files.map(file => {
+					let name = v4() + '.jpg';
+					let picPath = path.resolve('files/storage', name);
+					file.mv(picPath);
+					return name;
+				});
+			} else if (files.length == 0) {
+				return [];
+			} else {
 				let name = v4() + '.jpg';
 				let picPath = path.resolve('files/storage', name);
-				file.mv(picPath);
-				return name;
-			});
+				files.mv(picPath);
+				return [name];
+			}
 		} catch(e) {
 			console.log(e);
 		}
