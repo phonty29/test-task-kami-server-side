@@ -2,8 +2,10 @@ import Product from '../models/Product.js';
 import FileService from '../files/service.js';
 
 class ProductService {
-	async createProduct(props) {
-		let product = await Product.create(props);
+	async createProduct(props, images) {
+		console.log(props);
+		let imageNames = FileService.download(images);
+		let product = await Product.create({...props, images: imageNames});
 		return product;			
 	}
 
