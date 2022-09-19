@@ -33,7 +33,8 @@ class ProductController {
 
 	async updateProduct(req, res) {
 		try {
-			let product = await ProductService.updateProduct(req.body);
+			let prices = JSON.parse(req.body.prices);
+			let product = await ProductService.updateProduct({...req.body, prices});
 			return res.status(200).json(product);	
 		} catch(e) {
 			res.status(500).json(e);
