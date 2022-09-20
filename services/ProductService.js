@@ -3,7 +3,10 @@ import FileService from '../files/service.js';
 
 class ProductService {
 	async createProduct(props, images) {
-		let imageNames = FileService.download(images);
+		let imageNames = [];
+		if (images) {
+			imageNames = FileService.download(images);
+		}
 		let product = await Product.create({...props, imageUrls: imageNames});
 		return product;			
 	}

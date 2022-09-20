@@ -4,7 +4,7 @@ class ProductController {
 	async createProduct(req, res) {
 		try {
 			let prices = JSON.parse(req.body.prices);
-			let newImageUrls = [];
+			let newImageUrls = null;
 			if (req.files) {
 				newImageUrls = req.files.imageUrls;
 			}
