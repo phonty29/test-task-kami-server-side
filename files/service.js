@@ -11,8 +11,6 @@ class FileService {
 					file.mv(picPath);
 					return name;
 				});
-			} else if (files.length == 0) {
-				return [];
 			} else {
 				let name = v4() + '.jpg';
 				let picPath = path.resolve('files/storage', name);

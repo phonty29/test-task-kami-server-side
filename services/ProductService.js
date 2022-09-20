@@ -26,7 +26,10 @@ class ProductService {
 				throw new Error("Bad Request");	
 			}
 			let oldProduct = await Product.findById(newProduct._id);
-			let newImageNames = FileService.download(newImages);
+			let newImageNames = []; 
+			if (newImages) {
+				newImageNames = FileService.download(newImages);
+			}
 			let product = await Product.findByIdAndUpdate(newProduct._id, {...newProduct, imageUrls : [...oldProduct.imageUrls, ...newImageNames]}, {new: true});
 			return product;		
 	}
